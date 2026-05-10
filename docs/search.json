@@ -4,7 +4,8 @@
     "href": "index.html",
     "title": "We R Analyst",
     "section": "",
-    "text": "This is our project webpage.\nPlease stay tuned to follow our project activities.\nThis is our template.\n\nTeam Members\n\nEce Naz Kılınç\nDušan Tadić\nFrederico Rodrigues de Paula Santos\nSebastian Szymański\n\n\n\nProject Topic\n\n\nData Set\n\n\n\n\n Back to top"
+<<<<<<< HEAD
+    "text": "This is our project webpage.\nPlease stay tuned to follow our project activities.\nThis is our template.\n\nTeam Members\n\nEce Naz Kılınç\nAziz Önder\nCansu İnci\nMuhammed Enes Büyükertaş\nCeyda Hümeyra Özdemir\nŞeyma Çeliker\n\n\n\nProject Topic\nIn this project, we analyze the patterns and motivations behind internal migration in Türkiye by using officially published migration statistics from the Turkish Statistical Institute (TÜİK). Rather than focusing only on where people move, we aim to understand why these migration movements occur by examining factors such as educational opportunities, employment, housing conditions, marriage, retirement, and lifestyle preferences.\nUsing province-level migration data from all 81 provinces in Türkiye, we investigate how socio-economic differences between regions influence internal migration across the country. Through data cleaning, exploratory data analysis, and data visualization techniques in R, we explore migration flows, compare provinces, and identify the major drivers behind migration patterns.\nOur project combines statistical analysis with visual communication to better understand how internal migration reflects broader social and economic dynamics in Türkiye. By transforming raw migration tables into an analysis-ready dataset, we aim to make migration data easier to visualize, interpret, and communicate to different audiences.\n#Data\n\n\n\n\n Back to top"
   },
   {
     "objectID": "about.html",
@@ -12,6 +13,9 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n Back to top"
+=======
+    "text": "Welcome to our project hub! We are a team of Industrial Engineering students from Hacettepe University and this is our project webpage. Please stay tuned to follow our project activities.🌍📈\n\nTeam Members\n\nEce Naz Kılınç\nAziz Önder\nCansu İnci\nMuhammed Enes Büyükertaş\nCeyda Hümeyra Özdemir\nŞeyma Çeliker\n\n\n\nProject Topic\nIn this project, we analyze the patterns and motivations behind internal migration in Türkiye by using officially published migration statistics from the Turkish Statistical Institute (TÜİK). Rather than focusing only on where people move, we aim to understand why these migration movements occur by examining factors such as educational opportunities, employment, housing conditions, marriage, retirement, and lifestyle preferences.\nUsing province-level migration data from all 81 provinces in Türkiye, we investigate how socio-economic differences between regions influence internal migration across the country. Through data cleaning, exploratory data analysis, and data visualization techniques in R, we explore migration flows, compare provinces, and identify the major drivers behind migration patterns.\nOur project combines statistical analysis with visual communication to better understand how internal migration reflects broader social and economic dynamics in Türkiye. By transforming raw migration tables into an analysis-ready dataset, we aim to make migration data easier to visualize, interpret, and communicate to different audiences.\n\n\nData Set\n\n\n\n\n Back to top"
+>>>>>>> c4da46a58663857cfcd21c97150b3965c15d8cb6
   },
   {
     "objectID": "analysis.html",

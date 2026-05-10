@@ -1,24 +1,34 @@
 ---
 title: "We R Analyst"
-sidebar: false 
+sidebar: false
 ---
 
-This is our project webpage.
-
-Please stay tuned to follow our project activities.
-
-This is our template.
+Welcome to our project hub! We are a team of Industrial Engineering students from Hacettepe University and this is our project webpage. Please stay tuned to follow our project activities.🌍📈
 
 # Team Members
 
 1.  [Ece Naz Kılınç](https://emu-hacettepe-analytics.github.io/emu430-spring2026-ecekilinc/)
 
-2.  [Dušan Tadić](https://tr.wikipedia.org/wiki/Du%C5%A1an_Tadi%C4%87)
+2.  [Aziz Önder](https://emu-hacettepe-analytics.github.io/emu430-spring2026-azizonder/)
 
-3.  [Frederico Rodrigues de Paula Santos](https://tr.wikipedia.org/wiki/Fred_(1993_do%C4%9Fumlu_futbolcu))
+3.  [Cansu İnci](https://emu-hacettepe-analytics.github.io/emu430-spring2026-cansuinci/)
 
-4.  [Sebastian Szymański](https://tr.wikipedia.org/wiki/Sebastian_Szyma%C5%84ski)
+4.  [Muhammed Enes Büyükertaş](https://emu-hacettepe-analytics.github.io/emu430-spring2026-EnesBuyukertas/)
+
+5.  [Ceyda Hümeyra Özdemir](https://emu-hacettepe-analytics.github.io/emu430-spring2026-ceydaozdmr/)
+
+6.  [Şeyma Çeliker](https://emu-hacettepe-analytics.github.io/emu430-spring2026-seymaceliker/)
 
 # Project Topic
 
+In this project, we analyze the patterns and motivations behind internal migration in Türkiye by using officially published migration statistics from the Turkish Statistical Institute (TÜİK). Rather than focusing only on where people move, we aim to understand why these migration movements occur by examining factors such as educational opportunities, employment, housing conditions, marriage, retirement, and lifestyle preferences.
+
+Using province-level migration data from all 81 provinces in Türkiye, we investigate how socio-economic differences between regions influence internal migration across the country. Through data cleaning, exploratory data analysis, and data visualization techniques in R, we explore migration flows, compare provinces, and identify the major drivers behind migration patterns.
+
+Our project combines statistical analysis with visual communication to better understand how internal migration reflects broader social and economic dynamics in Türkiye. By transforming raw migration tables into an analysis-ready dataset, we aim to make migration data easier to visualize, interpret, and communicate to different audiences.
+
+<<<<<<< HEAD
+# Data
+=======
 # Data Set
+>>>>>>> c4da46a58663857cfcd21c97150b3965c15d8cb6
