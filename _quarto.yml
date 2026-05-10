@@ -26,13 +26,16 @@ website:
     border: true
 format:
   html:
+    theme: lux
+    mainfont: "Lexend"
     toc: true
     toc-location: left
-    theme: vapor
-      light: simplex
-       dark: cyborg
     css: styles.css
+    page-layout: article
+    smooth-scroll: true
 
 
 editor: visual
+
+ 
 
