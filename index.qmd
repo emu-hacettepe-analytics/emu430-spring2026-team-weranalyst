@@ -26,5 +26,3 @@ In this project, we analyze the patterns and motivations behind internal migrati
 Using province-level migration data from all 81 provinces in Türkiye, we investigate how socio-economic differences between regions influence internal migration across the country. Through data cleaning, exploratory data analysis, and data visualization techniques in R, we explore migration flows, compare provinces, and identify the major drivers behind migration patterns.
 
 Our project combines statistical analysis with visual communication to better understand how internal migration reflects broader social and economic dynamics in Türkiye. By transforming raw migration tables into an analysis-ready dataset, we aim to make migration data easier to visualize, interpret, and communicate to diferent audiences.
-
-
