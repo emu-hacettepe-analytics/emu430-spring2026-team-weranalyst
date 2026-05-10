@@ -27,4 +27,4 @@ Using province-level migration data from all 81 provinces in Türkiye, we invest
 
 Our project combines statistical analysis with visual communication to better understand how internal migration reflects broader social and economic dynamics in Türkiye. By transforming raw migration tables into an analysis-ready dataset, we aim to make migration data easier to visualize, interpret, and communicate to different audiences.
 
-# Data Set
+
