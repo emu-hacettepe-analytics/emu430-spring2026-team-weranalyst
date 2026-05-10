@@ -3,11 +3,7 @@ title: "We R Analyst"
 sidebar: false 
 ---
 
-This is our project webpage.
-
-Please stay tuned to follow our project activities.
-
-This is our template.
+Welcome to our project hub! We are a team of Industrial Engineering students from Hacettepe University and this is our project webpage. Please stay tuned to follow our project activities.🌍📈
 
 # Team Members
 
