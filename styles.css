@@ -1,1 +1,115 @@
-/* css styles */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap');
+
+body {
+  background-color: #fcfcfc !important; /* Temiz, hafif kırık beyaz */
+  color: #333333 !important;
+  font-family: 'Lexend', sans-serif !important;
+  line-height: 1.6;
+}
+
+/* Sitenin en üstüne çok ince, "ben buradayım" diyen bir detay */
+header {
+  border-top: 4px solid #001d3d; /* En koyu lacivert */
+}
+
+/* Tüm panelleri aynı zeminde birleştiriyoruz, kutu hissi bitti */
+.quarto-container, #quarto-sidebar, .sidebar, main, .quarto-content-block {
+  background-color: #fcfcfc !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Üst Menü (Navbar) - Ciddi ve Derin Lacivert */
+.navbar {
+  background-color: #001d3d !important; /* Gece mavisi */
+  border-bottom: 2px solid #003566 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+
+.navbar-title {
+  color: #ffc300 !important; /* Sadece başlıkta çok ufak bir altın "pop" rengi */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.nav-link {
+  color: #e0e0e0 !important;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #4cc9f0 !important; /* Üzerine gelince çok hafif bir elektrik mavisi */
+}
+
+/* Başlıklar - Güçlü ve Profesyonel (İşte o çizgi buradan atıldı) */
+h1 {
+  color: #003566 !important; /* Lacivertin en şık tonu */
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  /* ÇİZGİYİ ATTIK: border-bottom silindi */
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+h2, h3 {
+  color: #003566 !important;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-top: 1.5em;
+}
+
+/* Linkler - Sıkıcı olmayan, modern bir lacivert tonu */
+a {
+  color: #003566 !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Link Hover Efekti (Seamless ve Elit) */
+a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #4cc9f0;
+  transition: width 0.3s;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+a:hover {
+  color: #4cc9f0 !important;
+}
+
+/* Sol paneldeki içindekiler */
+.toc-title {
+  color: #003566 !important;
+  font-weight: 700;
+}
+
+.nav-link.active {
+  color: #003566 !important;
+  font-weight: 600;
+  border-left: 2px solid #003566 !important;
+}
+/* Başlığın üstündeki o çizgiyi HER YERDEN siliyoruz */
+.quarto-title-block, 
+h1.title, 
+header.quarto-title-block,
+.title {
+  border-top: none !important;
+  padding-top: 0 !important;
+  margin-top: 10px !important; /* Navbar ile metin arasında ufak bir boşluk kalsın */
+}
+
+/* Sayfa genelindeki olası diğer çizgileri de garantiye alalım */
+header {
+  border-top: none !important;
+}

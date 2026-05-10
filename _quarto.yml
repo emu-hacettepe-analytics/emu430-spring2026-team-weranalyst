@@ -29,8 +29,8 @@ format:
     toc: true
     toc-location: left
     theme: vapor
-      light: simplex 
-      dark: cyborg
+      light: simplex
+       dark: cyborg
     css: styles.css
 
 
