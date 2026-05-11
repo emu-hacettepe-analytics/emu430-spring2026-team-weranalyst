@@ -1,13 +1,15 @@
 ---
-title: "We R Analyst"
+title: ""
 sidebar: false 
 ---
 
 ::: {style="text-align: center;"}
-![](images/clipboard-4069088930.gif){width="300"}
+![](images/clipboard-2357349536.gif){width="300"}
 :::
 
-Welcome to our project hub! We are a team of Industrial Engineering students from Hacettepe University and this is our project webpage. Please stay tuned to follow our project activities.🌍📈
+# We R Analyst
+
+Hello! We are a team of Industrial Engineering students from Hacettepe University and this is our project webpage. Please stay tuned to follow our project activities.🌍📈
 
 # Team Members
 
