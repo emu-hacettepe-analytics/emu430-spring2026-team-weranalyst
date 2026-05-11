@@ -4,7 +4,7 @@ sidebar: false
 ---
 
 ::: {style="text-align: center;"}
-![](images/clipboard-2357349536.gif){width="300"}
+![](images/clipboard-2794198696.gif)
 :::
 
 # We R Analyst
