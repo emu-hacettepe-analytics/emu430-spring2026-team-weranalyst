@@ -16,50 +16,64 @@
   {
     "objectID": "data.html",
     "href": "data.html",
-    "title": "Data",
+    "title": "We R Analyst' Project Lab",
     "section": "",
     "text": "To meet the project requirement of using a “real-world dataset connected to Türkiye,” we selected official statistics from the Turkish Statistical Institute (TÜİK). We focused on the most recent “Internal Migration Statistics” (2024) and specifically utilized the “Inter-provincial migration by reason of migration” tables."
   },
   {
     "objectID": "data.html#data-discovery-and-retrieval-process",
     "href": "data.html#data-discovery-and-retrieval-process",
-    "title": "Data",
+    "title": "We R Analyst' Project Lab",
     "section": "",
     "text": "To meet the project requirement of using a “real-world dataset connected to Türkiye,” we selected official statistics from the Turkish Statistical Institute (TÜİK). We focused on the most recent “Internal Migration Statistics” (2024) and specifically utilized the “Inter-provincial migration by reason of migration” tables."
   },
   {
     "objectID": "data.html#dataset-introduction",
     "href": "data.html#dataset-introduction",
-    "title": "Data",
-    "section": "2. Dataset Introduction",
-    "text": "2. Dataset Introduction\nOur dataset details the migration movements across Türkiye’s 81 provinces based on 10 fundamental reasons:\n\nJob Assignment / Change of Job\nStarting a Job / Finding a Job\nEducation\nMarital Status / Family-related Reasons\nBetter Housing and Living Conditions\nMigration Dependent on a Household Member\nRetirement\nEarthquake (Special provision)\nHealth / Care\nOther / Unknown"
+    "title": "We R Analyst' Project Lab",
+    "section": "Dataset Introduction",
+    "text": "Dataset Introduction\nOur dataset details the migration movements across Türkiye’s 81 provinces based on 10 fundamental reasons:\n\nJob Assignment / Change of Job\nStarting a Job / Finding a Job\nEducation\nMarital Status / Family-related Reasons\nBetter Housing and Living Conditions\nMigration Dependent on a Household Member\nRetirement\nEarthquake (Special provision)\nHealth / Care\nOther / Unknown"
   },
   {
     "objectID": "data.html#data-structure-and-exploration",
     "href": "data.html#data-structure-and-exploration",
-    "title": "Data",
-    "section": "3. Data Structure and Exploration",
-    "text": "3. Data Structure and Exploration\nBelow, we load our cleaned dataset (final_data_clean) and examine its technical structure. This step ensures that our data types (numeric, character, etc.) are correctly assigned for further analysis."
+    "title": "We R Analyst' Project Lab",
+    "section": "Data Structure and Exploration",
+    "text": "Data Structure and Exploration\nBelow, we load our cleaned dataset (final_data_clean) and examine its technical structure. This step ensures that our data types (numeric, character, etc.) are correctly assigned for further analysis."
   },
   {
     "objectID": "data.html#libraries-and-data-loading",
     "href": "data.html#libraries-and-data-loading",
-    "title": "Data",
-    "section": "2. Libraries and Data Loading",
-    "text": "2. Libraries and Data Loading\nIn this section, we load the necessary libraries and our cleaned dataset.\n\n\nWarning: package 'tidyverse' was built under R version 4.5.3\n\n\nWarning: package 'tibble' was built under R version 4.5.3\n\n\nWarning: package 'tidyr' was built under R version 4.5.3\n\n\nWarning: package 'readr' was built under R version 4.5.3\n\n\nWarning: package 'purrr' was built under R version 4.5.3\n\n\nWarning: package 'dplyr' was built under R version 4.5.3\n\n\nWarning: package 'forcats' was built under R version 4.5.3\n\n\nWarning: package 'lubridate' was built under R version 4.5.3\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.1     ✔ readr     2.2.0\n✔ forcats   1.0.1     ✔ stringr   1.6.0\n✔ ggplot2   4.0.2     ✔ tibble    3.3.1\n✔ lubridate 1.9.5     ✔ tidyr     1.3.2\n✔ purrr     1.2.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nWarning in Sys.setlocale(\"LC_ALL\", \"Turkish\"): using locale code page other\nthan 65001 (\"UTF-8\") may cause problems\n\n\n[1] \"LC_COLLATE=Turkish_Türkiye.1254;LC_CTYPE=Turkish_Türkiye.1254;LC_MONETARY=Turkish_Türkiye.1254;LC_NUMERIC=C;LC_TIME=Turkish_Türkiye.1254\"\n\n\nRows: 891 Columns: 5\n-- Column specification --------------------------------------------------------\nDelimiter: \",\"\nchr (2): il, neden\ndbl (3): gelen_sayi, giden_sayi, net_goc\n\ni Use `spec()` to retrieve the full column specification for this data.\ni Specify the column types or set `show_col_types = FALSE` to quiet this message."
+    "title": "We R Analyst' Project Lab",
+    "section": "Libraries and Data Loading",
+    "text": "Libraries and Data Loading\nIn this section, we load the necessary libraries and our cleaned dataset.\n\nsuppressPackageStartupMessages({\n  library(tidyverse)\n  library(readr)\n  library(knitr)\n})\n\noptions(encoding = \"UTF-8\")\n\nfinal_data_clean &lt;- read_csv(\n  \"final_data_clean.csv\",\n  locale = locale(encoding = \"UTF-8\")\n)"
   },
   {
     "objectID": "data.html#structure-of-dataset",
     "href": "data.html#structure-of-dataset",
-    "title": "Data",
+    "title": "We R Analyst' Project Lab",
     "section": "Structure of Dataset",
-    "text": "Structure of Dataset\n\nstr(final_data_clean)\n\nspc_tbl_ [891 x 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ il        : chr [1:891] \"Adana\" \"Adana\" \"Adana\" \"Adana\" ...\n $ neden     : chr [1:891] \"Tayin / iş değişikliği Assignation / change of job\" \"İşe başlamak / iş bulmak Starting / finding a job\" \"Eğitim Education\" \"Daha iyi konut ve yaşam koşulları Better housing and living conditions\" ...\n $ gelen_sayi: num [1:891] 6221 3796 8595 11416 11715 ...\n $ giden_sayi: num [1:891] 5251 4260 12816 10465 12071 ...\n $ net_goc   : num [1:891] 970 -464 -4221 951 -356 ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   il = col_character(),\n  ..   neden = col_character(),\n  ..   gelen_sayi = col_double(),\n  ..   giden_sayi = col_double(),\n  ..   net_goc = col_double()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt;"
+    "text": "Structure of Dataset\n\nstr(final_data_clean)\n\nspc_tbl_ [891 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ il        : chr [1:891] \"Adana\" \"Adana\" \"Adana\" \"Adana\" ...\n $ neden     : chr [1:891] \"Tayin / iş değişikliği Assignation / change of job\" \"İşe başlamak / iş bulmak Starting / finding a job\" \"Eğitim Education\" \"Daha iyi konut ve yaşam koşulları Better housing and living conditions\" ...\n $ gelen_sayi: num [1:891] 6221 3796 8595 11416 11715 ...\n $ giden_sayi: num [1:891] 5251 4260 12816 10465 12071 ...\n $ net_goc   : num [1:891] 970 -464 -4221 951 -356 ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   il = col_character(),\n  ..   neden = col_character(),\n  ..   gelen_sayi = col_double(),\n  ..   giden_sayi = col_double(),\n  ..   net_goc = col_double()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt;"
   },
   {
     "objectID": "data.html#data-frame",
     "href": "data.html#data-frame",
-    "title": "Data",
+    "title": "We R Analyst' Project Lab",
     "section": "Data Frame",
     "text": "Data Frame\n\n\nData Frame: \n\n\nNumber of Observations: 891 \n\n\nNumber of Variables: 5 \n\n\nVariable Names: \n\n\n[1] \"il\"         \"neden\"      \"gelen_sayi\" \"giden_sayi\" \"net_goc\""
+  },
+  {
+    "objectID": "data.html#migration-by-province",
+    "href": "data.html#migration-by-province",
+    "title": "We R Analyst' Project Lab",
+    "section": "Migration by Province",
+    "text": "Migration by Province\n\nTop 20 Incoming Migration by Province\n\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(scales)\n\n\nAttaching package: 'scales'\n\n\nThe following object is masked from 'package:purrr':\n\n    discard\n\n\nThe following object is masked from 'package:readr':\n\n    col_factor\n\nfinal_data_clean %&gt;%\n  group_by(il) %&gt;%\n  summarise(total_incoming = sum(gelen_sayi, na.rm = TRUE)) %&gt;%\n  arrange(desc(total_incoming)) %&gt;%\n  slice_head(n = 20) %&gt;%\n  ggplot(aes(x = reorder(il, total_incoming), y = total_incoming)) +\n  geom_col(fill = \"#001f5b\", width = 0.75) +\n  coord_flip() +\n  scale_y_continuous(labels = comma) +\n  labs(\n    title = \"Top 20 Provinces by Incoming Migration\",\n    x = NULL,\n    y = \"Incoming Migration\"\n  ) +\n  theme_minimal(base_size = 13) +\n  theme(\n    plot.title = element_text(size = 18, face = \"bold\"),\n    axis.text.y = element_text(size = 11),\n    axis.text.x = element_text(size = 10),\n    panel.grid.major.y = element_blank(),\n    panel.grid.minor = element_blank()\n  )\n\n\n\n\n\n\n\n\n\n\nTop 20 Outgoing Migration by Province\n\nfinal_data_clean %&gt;%\n  group_by(il) %&gt;%\n  summarise(total_outgoing = sum(giden_sayi, na.rm = TRUE)) %&gt;%\n  arrange(desc(total_outgoing)) %&gt;%\n  slice_head(n = 20) %&gt;%\n  ggplot(aes(x = reorder(il, total_outgoing), y = total_outgoing)) +\n  geom_col(fill = \"#001f5b\", width = 0.75) +\n  coord_flip() +\n  scale_y_continuous(labels = comma) +\n  labs(\n    title = \"Top 20 Provinces by Outgoing Migration\",\n    x = NULL,\n    y = \"Outgoing Migration\"\n  ) +\n  theme_minimal(base_size = 13) +\n  theme(\n    plot.title = element_text(size = 18, face = \"bold\"),\n    axis.text.y = element_text(size = 11),\n    axis.text.x = element_text(size = 10),\n    panel.grid.major.y = element_blank(),\n    panel.grid.minor = element_blank()\n  )"
+  },
+  {
+    "objectID": "data.html#most-common-reasons-for-migration",
+    "href": "data.html#most-common-reasons-for-migration",
+    "title": "We R Analyst' Project Lab",
+    "section": "Most Common Reasons for Migration",
+    "text": "Most Common Reasons for Migration\n\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(scales)\n\nfinal_data_clean %&gt;%\n  group_by(neden) %&gt;%\n  summarise(total_migration = sum(gelen_sayi + giden_sayi, na.rm = TRUE)) %&gt;%\n  arrange(desc(total_migration)) %&gt;%\n  slice_head(n = 10) %&gt;%\n  ggplot(aes(x = reorder(neden, total_migration),\n             y = total_migration)) +\n  geom_col(fill = \"#001f5b\", width = 0.75) +\n  coord_flip() +\n  scale_y_continuous(labels = comma) +\n  labs(\n    title = \"Top 10 Reasons for Migration\",\n    x = NULL,\n    y = \"Total Migration\"\n  ) +\n  theme_minimal(base_size = 13) +\n  theme(\n    plot.title = element_text(size = 18, face = \"bold\"),\n    axis.text.y = element_text(size = 10),\n    axis.text.x = element_text(size = 10),\n    panel.grid.major.y = element_blank(),\n    panel.grid.minor = element_blank()\n  )"
   }
 ]
