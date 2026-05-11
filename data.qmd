@@ -1,7 +1,175 @@
 ---
-title: "Data"
+title: ""
 ---
 
-# Data Set
+## Data Discovery and Retrieval Process
 
-Data source: xxxxxxx
+To meet the project requirement of using a "real-world dataset connected to Türkiye," we selected official statistics from the **Turkish Statistical Institute (TÜİK)**. We focused on the most recent "Internal Migration Statistics" (2024) and specifically utilized the "Inter-provincial migration by reason of migration" tables.
+
+#### Data Source: [TÜİK Data Portal](https://veriportali.tuik.gov.tr/tr/press/54082)
+
+## Dataset Introduction
+
+Our dataset details the migration movements across Türkiye's 81 provinces based on 10 fundamental reasons:
+
+1.  Job Assignment / Change of Job
+2.  Starting a Job / Finding a Job
+3.  Education
+4.  Marital Status / Family-related Reasons
+5.  Better Housing and Living Conditions
+6.  Migration Dependent on a Household Member
+7.  Retirement
+8.  Earthquake (Special provision)
+9.  Health / Care
+10. Other / Unknown
+
+## Data Structure and Exploration
+
+Below, we load our cleaned dataset (`final_data_clean`) and examine its technical structure. This step ensures that our data types (numeric, character, etc.) are correctly assigned for further analysis.
+
+## Libraries and Data Loading
+
+In this section, we load the necessary libraries and our cleaned dataset.
+
+```{r}
+#| echo: TRUE
+#| warning: FALSE
+
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(readr)
+  library(knitr)
+})
+
+options(encoding = "UTF-8")
+
+final_data_clean <- read_csv(
+  "final_data_clean.csv",
+  locale = locale(encoding = "UTF-8")
+)
+```
+
+## Structure of Dataset
+
+```{r}
+#| echo: TRUE
+
+str(final_data_clean)
+```
+
+## Data Frame
+
+```{r}
+#| echo: FALSE
+
+cat("Data Frame:", "\n")
+cat("Number of Observations:", nrow(final_data_clean), "\n")
+cat("Number of Variables:", ncol(final_data_clean), "\n\n")
+
+cat("Variable Names:", "\n")
+print(colnames(final_data_clean))
+```
+
+## Migration by Province
+
+### Top 20 Incoming Migration by Province
+
+```{r}
+#| echo: TRUE
+#| fig-width: 10
+#| fig-height: 8
+
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+final_data_clean %>%
+  group_by(il) %>%
+  summarise(total_incoming = sum(gelen_sayi, na.rm = TRUE)) %>%
+  arrange(desc(total_incoming)) %>%
+  slice_head(n = 20) %>%
+  ggplot(aes(x = reorder(il, total_incoming), y = total_incoming)) +
+  geom_col(fill = "#001f5b", width = 0.75) +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Top 20 Provinces by Incoming Migration",
+    x = NULL,
+    y = "Incoming Migration"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(size = 18, face = "bold"),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_text(size = 10),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+```
+
+### Top 20 Outgoing Migration by Province
+
+```{r}
+#| echo: TRUE
+#| fig-width: 10
+#| fig-height: 8
+
+final_data_clean %>%
+  group_by(il) %>%
+  summarise(total_outgoing = sum(giden_sayi, na.rm = TRUE)) %>%
+  arrange(desc(total_outgoing)) %>%
+  slice_head(n = 20) %>%
+  ggplot(aes(x = reorder(il, total_outgoing), y = total_outgoing)) +
+  geom_col(fill = "#001f5b", width = 0.75) +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Top 20 Provinces by Outgoing Migration",
+    x = NULL,
+    y = "Outgoing Migration"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(size = 18, face = "bold"),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_text(size = 10),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+```
+
+## Most Common Reasons for Migration
+
+```{r}
+#| echo: TRUE
+#| fig-width: 11
+#| fig-height: 8
+
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+final_data_clean %>%
+  group_by(neden) %>%
+  summarise(total_migration = sum(gelen_sayi + giden_sayi, na.rm = TRUE)) %>%
+  arrange(desc(total_migration)) %>%
+  slice_head(n = 10) %>%
+  ggplot(aes(x = reorder(neden, total_migration),
+             y = total_migration)) +
+  geom_col(fill = "#001f5b", width = 0.75) +
+  coord_flip() +
+  scale_y_continuous(labels = comma) +
+  labs(
+    title = "Top 10 Reasons for Migration",
+    x = NULL,
+    y = "Total Migration"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(size = 18, face = "bold"),
+    axis.text.y = element_text(size = 10),
+    axis.text.x = element_text(size = 10),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+```
