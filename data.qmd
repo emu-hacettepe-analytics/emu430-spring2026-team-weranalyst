@@ -138,23 +138,39 @@ final_data_clean %>%
   )
 ```
 
-## Most Common Reasons for Migration
+### Most Common Reasons for Migration
 
 ```{r}
-#| echo: TRUE
-#| fig-width: 11
-#| fig-height: 8
+#| echo: FALSE
+#| fig-width: 10
+#| fig-height: 7
 
 library(dplyr)
 library(ggplot2)
 library(scales)
+library(stringr)
 
 final_data_clean %>%
-  group_by(neden) %>%
+  mutate(
+    short_reason = case_when(
+      str_detect(neden, "household|family") ~ "Family",
+      str_detect(neden, "Better housing") ~ "Better Living",
+      str_detect(neden, "Education") ~ "Education",
+      str_detect(neden, "Assignment|change of job") ~ "Job Assignment",
+      str_detect(neden, "Starting|finding a job") ~ "Finding a Job",
+      str_detect(neden, "Unknown") ~ "Unknown",
+      str_detect(neden, "Returning to family") ~ "Returning Home",
+      str_detect(neden, "Buying a house") ~ "Buying a House",
+      str_detect(neden, "Other") ~ "Other",
+      str_detect(neden, "Health|care") ~ "Health",
+      TRUE ~ neden
+    )
+  ) %>%
+  group_by(short_reason) %>%
   summarise(total_migration = sum(gelen_sayi + giden_sayi, na.rm = TRUE)) %>%
   arrange(desc(total_migration)) %>%
   slice_head(n = 10) %>%
-  ggplot(aes(x = reorder(neden, total_migration),
+  ggplot(aes(x = reorder(short_reason, total_migration),
              y = total_migration)) +
   geom_col(fill = "#001f5b", width = 0.75) +
   coord_flip() +
@@ -167,8 +183,7 @@ final_data_clean %>%
   theme_minimal(base_size = 13) +
   theme(
     plot.title = element_text(size = 18, face = "bold"),
-    axis.text.y = element_text(size = 10),
-    axis.text.x = element_text(size = 10),
+    axis.text.y = element_text(size = 11),
     panel.grid.major.y = element_blank(),
     panel.grid.minor = element_blank()
   )
