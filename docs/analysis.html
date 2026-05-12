@@ -161,6 +161,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#total-internal-migration-flow-by-province" id="toc-total-internal-migration-flow-by-province" class="nav-link" data-scroll-target="#total-internal-migration-flow-by-province">Total Internal Migration Flow by Province</a></li>
   <li><a href="#in-migration-map-of-türkiye" id="toc-in-migration-map-of-türkiye" class="nav-link" data-scroll-target="#in-migration-map-of-türkiye">In-Migration Map of Türkiye</a></li>
   <li><a href="#out-migration-map-of-turkey" id="toc-out-migration-map-of-turkey" class="nav-link" data-scroll-target="#out-migration-map-of-turkey">Out-Migration Map of Turkey</a></li>
+  <li><a href="#pareto-analysis-of-migration-flow" id="toc-pareto-analysis-of-migration-flow" class="nav-link" data-scroll-target="#pareto-analysis-of-migration-flow">Pareto Analysis of Migration Flow</a></li>
   </ul>
 </nav>
 </nav>
@@ -202,23 +203,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="regional-balance-of-internal-migration" class="level2">
 <h2 class="anchored" data-anchor-id="regional-balance-of-internal-migration">Regional Balance of Internal Migration</h2>
-<p>Internal migration is one of the most important indicators of social and economic change within a country. Population movements between regions often reflect differences in employment opportunities, educational access, quality of life, urbanization, and living conditions. In Türkiye, migration trends have historically shown a movement from eastern and less industrialized regions toward western and economically developed areas.</p>
-<p>In this analysis, provinces were grouped into Türkiye’s seven geographical regions in order to evaluate migration patterns on a broader regional scale rather than only at the provincial level. For each region, total incoming migration and outgoing migration values were calculated and compared.</p>
-<p>The concept of <strong>net migration</strong> was used to better understand the population balance of each region. Net migration is calculated by subtracting outgoing migration from incoming migration:</p>
-<p><strong>Net Migration = Incoming Migration − Outgoing Migration</strong></p>
-<ul>
-<li>Positive net migration values indicate that a region attracts more people than it loses.</li>
-<li>Negative net migration values indicate that more people leave the region than move into it.</li>
-</ul>
-<p>This analysis helps reveal which regions are population attractors and which regions experience migration loss. It also provides a clearer understanding of regional demographic dynamics and socio-economic imbalance across Türkiye.</p>
+<p>Migration patterns in Turkey are not evenly distributed across geographical regions. Some regions attract population through economic opportunities, urban development, education, and industrial activity, while others experience population loss due to outward migration.</p>
+<p>To better understand these regional dynamics, provinces were grouped according to Turkey’s seven geographical regions. Total incoming migration and outgoing migration values were calculated for each region, and net migration values were obtained by subtracting outgoing migration from incoming migration.</p>
+<p>Positive values indicate that a region receives more people than it loses, whereas negative values indicate population loss through migration.</p>
+<p>The graph below compares the regional balance of internal migration and highlights which regions function as migration attractors and which regions experience migration decline.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Matched Region Count: 7"</code></pre>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
-<p>The visualization above demonstrates that migration is not evenly distributed across Türkiye’s geographical regions. Regions such as Marmara show strong positive net migration values, meaning that they attract more people than they lose. This may be associated with industrialization, employment opportunities, educational institutions, and urban infrastructure concentrated in these areas.</p>
-<p>On the other hand, regions such as Doğu Anadolu and Güneydoğu Anadolu experience negative net migration values. This indicates that outgoing migration exceeds incoming migration, suggesting that people may be leaving these regions in search of better economic opportunities, education, or improved living conditions elsewhere.</p>
-<p>Another important observation is the visible contrast between western and eastern regions of Türkiye. The results suggest that migration patterns are closely related to regional development differences and socio-economic dynamics. Overall, the analysis highlights how migration data can provide insight into broader demographic and economic trends within the country.</p>
+</div>
+<p>The visualization clearly demonstrates that migration balance differs significantly between regions. Regions such as Marmara and the Aegean show positive net migration values, meaning that they attract more people than they lose. These regions are generally associated with stronger economies, industrial development, educational institutions, and urban opportunities.</p>
+<p>In contrast, regions such as Eastern Anatolia and Southeastern Anatolia experience negative net migration values, indicating higher levels of outward migration. This pattern may reflect differences in employment opportunities, living standards, infrastructure, and regional development.</p>
+<p>Overall, the analysis highlights the unequal geographical distribution of migration in Turkey and shows how migration patterns are closely connected to socio-economic conditions and regional attractiveness.</p>
 <hr>
 </section>
 <section id="total-internal-migration-flow-by-province" class="level2">
@@ -229,58 +229,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Another important observation is the strong concentration of migration in major urban centers. Most provinces remain clustered at relatively lower migration levels, while a small number of highly developed provinces create a sharp increase at the upper end of the distribution. This indicates that internal migration in Türkiye is heavily centralized around a few key metropolitan areas.</p>
 <p>The visualization also demonstrates the presence of outlier provinces with exceptionally high migration activity. These outliers suggest that migration patterns are not evenly spread across the country and are instead shaped by regional economic attraction, labor markets, and quality-of-life differences.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"scales"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>, <span class="st">"scales"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: packages 'dplyr', 'ggplot2', 'scales' are in use and will not be
 installed</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>il_akis_sirali <span class="ot">&lt;-</span> final_data_clean <span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(il) <span class="sc">%&gt;%</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_flow =</span> <span class="fu">sum</span>(gelen_sayi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">sum</span>(giden_sayi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(total_flow)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(il_akis_sirali, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(il, total_flow), <span class="at">y =</span> total_flow)) <span class="sc">+</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(il, total_flow), <span class="at">xend =</span> il, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> total_flow), </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"#d6d6d6"</span>, <span class="at">size =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#003366"</span>, </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">16</span>, </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_number</span>(<span class="at">suffix =</span> <span class="st">" K"</span>, <span class="at">scale =</span> <span class="fl">1e-3</span>),</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">max</span>(il_akis_sirali<span class="sc">$</span>total_flow) <span class="sc">+</span> <span class="dv">100000</span>, <span class="at">by =</span> <span class="dv">100000</span>),</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.12</span>))</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Total Internal Migration Flow by Province"</span>,</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Provinces ranked by volume of the flow"</span>,</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Flow"</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">7.5</span>, </span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                               <span class="at">color =</span> <span class="st">"#5a5a5a"</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"#5a5a5a"</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#e0e0e0"</span>, <span class="at">size =</span> <span class="fl">0.4</span>), </span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"#003366"</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"#7a7a7a"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">20</span>), <span class="at">hjust =</span> <span class="dv">0</span>),</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line.x =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#cccccc"</span>, <span class="at">size =</span> <span class="fl">0.6</span>),</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">30</span>)</span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>il_akis_sirali <span class="ot">&lt;-</span> final_data_clean <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(il) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">total_flow =</span> <span class="fu">sum</span>(gelen_sayi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">sum</span>(giden_sayi, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(total_flow)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(il_akis_sirali, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(il, total_flow), <span class="at">y =</span> total_flow)) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(il, total_flow), <span class="at">xend =</span> il, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> total_flow), </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"#d6d6d6"</span>, <span class="at">size =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#003366"</span>, </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">2.5</span>, </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">16</span>, </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">label_number</span>(<span class="at">suffix =</span> <span class="st">" K"</span>, <span class="at">scale =</span> <span class="fl">1e-3</span>),</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="fu">max</span>(il_akis_sirali<span class="sc">$</span>total_flow) <span class="sc">+</span> <span class="dv">100000</span>, <span class="at">by =</span> <span class="dv">100000</span>),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.12</span>))</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"sans"</span>) <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Total Internal Migration Flow by Province"</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Provinces ranked by volume of the flow"</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, </span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Flow"</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">7.5</span>, </span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>                               <span class="at">color =</span> <span class="st">"#5a5a5a"</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>, <span class="at">color =</span> <span class="st">"#5a5a5a"</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#e0e0e0"</span>, <span class="at">size =</span> <span class="fl">0.4</span>), </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"#003366"</span>, <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">color =</span> <span class="st">"#7a7a7a"</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="dv">20</span>), <span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line.x =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#cccccc"</span>, <span class="at">size =</span> <span class="fl">0.6</span>),</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">30</span>, <span class="dv">30</span>)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.</code></pre>
+</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -327,6 +335,28 @@ installed</code></pre>
 <p>The map demonstrates that out-migration intensity varies significantly across provinces. Some provinces experience considerably larger population outflows compared to others, which may reflect economic limitations, educational migration, employment opportunities in larger cities, or changing living preferences.</p>
 <p>The dominant migration reasons also differ regionally. In some provinces, education emerges as the primary reason for migration, while in others family-related migration or better living conditions play a stronger role.</p>
 <p>Overall, the visualization provides insight into the spatial structure of population loss in Turkey and helps illustrate how migration decisions are influenced by both geographical and socio-economic factors.</p>
+<hr>
+</section>
+<section id="pareto-analysis-of-migration-flow" class="level2">
+<h2 class="anchored" data-anchor-id="pareto-analysis-of-migration-flow">Pareto Analysis of Migration Flow</h2>
+<p>Internal migration is not distributed evenly across provinces in Turkey. Some provinces experience significantly higher migration activity due to economic opportunities, educational institutions, industrial development, transportation accessibility, and population density.</p>
+<p>In this section, a Pareto analysis is used to examine how migration flow is concentrated across provinces. The Pareto principle, often referred to as the “80/20 rule,” helps identify whether a relatively small number of provinces account for a large proportion of total migration activity.</p>
+<p>For this analysis, total migration flow was calculated by combining incoming and outgoing migration values for each province. Provinces were then ranked from highest to lowest migration volume.</p>
+<p>In the chart below: - The navy bars represent total migration flow for each province. - The yellow cumulative line shows how migration activity accumulates across provinces. - The secondary axis displays the cumulative percentage distribution.</p>
+<p>This visualization helps demonstrate whether migration activity is centralized around a limited number of major provinces or more evenly distributed throughout the country.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The Pareto chart clearly shows that migration activity in Turkey is highly concentrated in a relatively small number of provinces. Major metropolitan provinces contribute a disproportionately large share of total migration flow, while many provinces remain at comparatively lower levels.</p>
+<p>The cumulative percentage curve rises rapidly during the first part of the distribution, indicating that a limited number of provinces account for a substantial portion of migration activity. This suggests that internal migration in Turkey is strongly centered around economically and socially attractive urban areas.</p>
+<p>Another important observation is the existence of strong migration outliers. Provinces such as Istanbul, Ankara, and Izmir stand significantly above the rest in terms of migration flow. These provinces likely function as major hubs for education, employment, transportation, and economic opportunity.</p>
+<p>Overall, the Pareto analysis highlights the unequal spatial distribution of migration and demonstrates how migration dynamics are concentrated around a small number of dominant provinces.</p>
 
 
 </section>
