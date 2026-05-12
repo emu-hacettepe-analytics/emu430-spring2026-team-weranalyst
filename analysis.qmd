@@ -2,8 +2,579 @@
 title: "Analysis"
 ---
 
-About this site
+# Analysis
+
+## Key Takeaways
+
+-   Internal migration patterns in Türkiye reveal significant regional differences in population movement.
+-   Western regions such as Marmara, Ege, and Akdeniz generally experience population gain, while eastern regions tend to experience population loss.
+-   Migration decisions are strongly associated with family-related reasons, better living conditions, education, and employment opportunities.
+-   Regional migration analysis provides valuable insight into socio-economic inequalities and demographic changes across the country.
+
+------------------------------------------------------------------------
+
+## Regional Balance of Internal Migration
+
+Internal migration is one of the most important indicators of social and economic change within a country. Population movements between regions often reflect differences in employment opportunities, educational access, quality of life, urbanization, and living conditions. In Türkiye, migration trends have historically shown a movement from eastern and less industrialized regions toward western and economically developed areas.
+
+In this analysis, provinces were grouped into Türkiye’s seven geographical regions in order to evaluate migration patterns on a broader regional scale rather than only at the provincial level. For each region, total incoming migration and outgoing migration values were calculated and compared.
+
+The concept of **net migration** was used to better understand the population balance of each region. Net migration is calculated by subtracting outgoing migration from incoming migration:
+
+**Net Migration = Incoming Migration − Outgoing Migration**
+
+-   Positive net migration values indicate that a region attracts more people than it loses.
+-   Negative net migration values indicate that more people leave the region than move into it.
+
+This analysis helps reveal which regions are population attractors and which regions experience migration loss. It also provides a clearer understanding of regional demographic dynamics and socio-economic imbalance across Türkiye.
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+
+library(tidyverse)
+library(readr)
+
+final_data_clean <- read_csv(
+  "final_data_clean.csv",
+  locale = locale(encoding = "UTF-8"),
+  show_col_types = FALSE
+)
+```
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+#| fig-width: 11
+#| fig-height: 7
+
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(scales)
+library(stringi)
+
+while (!is.null(dev.list())) dev.off()
+options(scipen = 999)
+
+marmara <- c("istanbul", "edirne", "kirklareli", "tekirdag", "canakkale", "kocaeli", "yalova", "sakarya", "bilecik", "bursa", "balikesir")
+ege <- c("izmir", "manisa", "aydin", "denizli", "mugla", "afyonkarahisar", "afyon", "kutahya", "usak")
+akdeniz <- c("antalya", "isparta", "burdur", "adana", "mersin", "icel", "hatay", "osmaniye", "kahramanmaras")
+icanadolu <- c("ankara", "konya", "karaman", "aksaray", "nigde", "nevsehir", "kirsehir", "kirikkale", "yozgat", "kayseri", "sivas", "cankiri", "eskisehir")
+karadeniz <- c("artvin", "rize", "bayburt", "trabzon", "gumushane", "giresun", "ordu", "tokat", "amasya", "samsun", "sinop", "corum", "kastamonu", "bartin", "karabuk", "zonguldak", "duzce", "bolu")
+doguanadolu <- c("erzurum", "erzincan", "kars", "tunceli", "bingol", "elazig", "malatya", "hakkari", "van", "bitlis", "mus", "agri", "igdir", "ardahan")
+guneydogu <- c("gaziantep", "kilis", "adiyaman", "sanliurfa", "diyarbakir", "mardin", "batman", "siirt", "sirnak")
+
+bolge_net_goc <- final_data_clean %>%
+  mutate(
+    il_temiz = stri_trans_general(il, "Latin-ASCII"),
+    il_temiz = str_trim(tolower(il_temiz))
+  ) %>%
+  mutate(Bolge = case_when(
+    il_temiz %in% marmara ~ "Marmara",
+    il_temiz %in% ege ~ "Ege",
+    il_temiz %in% akdeniz ~ "Akdeniz",
+    il_temiz %in% icanadolu ~ "Ic Anadolu",
+    il_temiz %in% karadeniz ~ "Karadeniz",
+    il_temiz %in% doguanadolu ~ "Dogu Anadolu",
+    il_temiz %in% guneydogu ~ "Guneydogu Anadolu",
+    TRUE ~ "Bilinmeyen"
+  )) %>%
+  filter(Bolge != "Bilinmeyen") %>%
+  group_by(Bolge) %>%
+  summarise(
+    Gelen = sum(gelen_sayi, na.rm = TRUE),
+    Giden = sum(giden_sayi, na.rm = TRUE)
+  ) %>%
+  mutate(
+    Net_Goc = Gelen - Giden,
+    Durum = ifelse(Net_Goc >= 0, "Net Gain (Incoming > Outgoing)", "Net Loss (Outgoing > Incoming)")
+  )
+
+print(paste("Matched Region Count:", nrow(bolge_net_goc)))
+
+if(nrow(bolge_net_goc) > 0) {
+  
+  p <- ggplot(bolge_net_goc, aes(x = reorder(Bolge, Net_Goc), y = Net_Goc, fill = Durum)) +
+    geom_bar(stat = "identity", width = 0.65, alpha = 0.95) +
+    geom_hline(yintercept = 0, color = "#cccccc", size = 0.8) +
+    geom_text(
+      aes(
+        label = paste0(ifelse(Net_Goc > 0, "+", ""), label_number(suffix = " K", scale = 1e-3, accuracy = 0.1)(Net_Goc)),
+        hjust = ifelse(Net_Goc > 0, -0.2, 1.2)
+      ),
+      size = 4, fontface = "bold", color = "#555555"
+    ) +
+    coord_flip(clip = "off") + 
+    scale_fill_manual(values = c(
+      "Net Gain (Incoming > Outgoing)" = "#003366", 
+      "Net Loss (Outgoing > Incoming)" = "#f1c40f"  
+    )) +
+    scale_y_continuous(
+      labels = label_number(suffix = " K", scale = 1e-3),
+      expand = expansion(mult = c(0.2, 0.2)) 
+    ) +
+    theme_minimal(base_family = "sans") +
+    labs(
+      title = "Regional Balance of Internal Migration",
+      subtitle = "Evaluating population gains and losses across Turkiye's 7 geographical regions",
+      x = NULL,
+      y = "Net Migration Flow",
+      fill = NULL
+    ) +
+    theme(
+      plot.background = element_rect(fill = "white", color = NA),
+      panel.background = element_rect(fill = "white", color = NA),
+      plot.title = element_text(face = "bold", size = 20, color = "#003366", hjust = 0),
+      plot.subtitle = element_text(size = 12, color = "#666666", margin = margin(b = 20), hjust = 0),
+      axis.text.y = element_text(size = 10, color = "#555555", face = "bold"),
+      axis.text.x = element_text(size = 9, color = "#555555", face = "bold"),
+      axis.title.x = element_text(face = "bold", color = "#003366", margin = margin(t = 15)),
+      panel.grid.major.y = element_blank(), 
+      panel.grid.major.x = element_line(color = "#e0e0e0", size = 0.4),
+      panel.grid.minor = element_blank(),
+      legend.position = "top",
+      legend.text = element_text(color = "#555555", face = "bold", size = 9),
+      plot.margin = margin(30, 40, 30, 30)
+    )
+  print(p)
+  
+} else {
+  print("ERROR: Data mismatch. Please check your final_data_clean dataframe.")
+}
+```
+
+The visualization above demonstrates that migration is not evenly distributed across Türkiye’s geographical regions. Regions such as Marmara show strong positive net migration values, meaning that they attract more people than they lose. This may be associated with industrialization, employment opportunities, educational institutions, and urban infrastructure concentrated in these areas.
+
+On the other hand, regions such as Doğu Anadolu and Güneydoğu Anadolu experience negative net migration values. This indicates that outgoing migration exceeds incoming migration, suggesting that people may be leaving these regions in search of better economic opportunities, education, or improved living conditions elsewhere.
+
+Another important observation is the visible contrast between western and eastern regions of Türkiye. The results suggest that migration patterns are closely related to regional development differences and socio-economic dynamics. Overall, the analysis highlights how migration data can provide insight into broader demographic and economic trends within the country.
+
+------------------------------------------------------------------------
+
+## Total Internal Migration Flow by Province
+
+While regional analysis provides a broader understanding of migration dynamics, examining migration flow at the provincial level allows us to identify which specific cities dominate internal migration in Türkiye.
+
+In this visualization, provinces are ranked according to their total migration flow volume. The total flow value represents the combined amount of incoming and outgoing migration activity for each province. This approach highlights provinces with the highest population mobility regardless of whether they experience net migration gain or loss.
+
+The graph reveals a highly uneven distribution of migration flow across provinces. A limited number of metropolitan cities stand out with significantly higher migration volumes compared to the rest of the country. Provinces such as İstanbul, Ankara, and İzmir clearly dominate the migration network due to their economic activity, educational opportunities, transportation accessibility, and urban infrastructure.
+
+Another important observation is the strong concentration of migration in major urban centers. Most provinces remain clustered at relatively lower migration levels, while a small number of highly developed provinces create a sharp increase at the upper end of the distribution. This indicates that internal migration in Türkiye is heavily centralized around a few key metropolitan areas.
+
+The visualization also demonstrates the presence of outlier provinces with exceptionally high migration activity. These outliers suggest that migration patterns are not evenly spread across the country and are instead shaped by regional economic attraction, labor markets, and quality-of-life differences.
 
 ```{r}
-1 + 1
+#| echo: TRUE
+install.packages(c("dplyr", "ggplot2", "scales"))
+
+library(dplyr)
+library(ggplot2)
+library(scales)
+
+options(scipen = 999)
+
+il_akis_sirali <- final_data_clean %>%
+  group_by(il) %>%
+  summarise(
+    total_flow = sum(gelen_sayi, na.rm = TRUE) + sum(giden_sayi, na.rm = TRUE)
+  ) %>%
+  ungroup() %>%
+  arrange(total_flow)
+
+ggplot(il_akis_sirali, aes(x = reorder(il, total_flow), y = total_flow)) +
+  geom_segment(aes(x = reorder(il, total_flow), xend = il, y = 0, yend = total_flow), 
+               color = "#d6d6d6", size = 0.4) +
+  geom_point(color = "#003366", 
+             size = 2.5, 
+             shape = 16, 
+             alpha = 1) +
+  scale_y_continuous(
+    labels = label_number(suffix = " K", scale = 1e-3),
+    breaks = seq(0, max(il_akis_sirali$total_flow) + 100000, by = 100000),
+    expand = expansion(mult = c(0, 0.12))
+  ) +
+  theme_minimal(base_family = "sans") +
+  labs(
+    title = "Total Internal Migration Flow by Province",
+    subtitle = "Provinces ranked by volume of the flow",
+    x = NULL, 
+    y = "Total Flow"
+  ) +
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    panel.background = element_rect(fill = "white", color = NA),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 7.5, 
+                               color = "#5a5a5a", face = "bold"),
+    axis.text.y = element_text(size = 9, color = "#5a5a5a", face = "bold"),
+    panel.grid.major.y = element_line(color = "#e0e0e0", size = 0.4), 
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", size = 20, color = "#003366", hjust = 0),
+    plot.subtitle = element_text(size = 12, color = "#7a7a7a", margin = margin(b = 20), hjust = 0),
+    axis.line.x = element_line(color = "#cccccc", size = 0.6),
+    plot.margin = margin(30, 30, 30, 30)
+  )
 ```
+
+------------------------------------------------------------------------
+
+## In-Migration Map of Türkiye
+
+This map visualizes in-migration patterns across Türkiye at the provincial level. Each point represents a province, and the size of the point shows the total number of people migrating into that province. Larger points indicate provinces that receive higher levels of in-migration.
+
+The color of each point represents the most common reason for in-migration in that province. This allows us to observe not only where people move, but also why they move. Reasons such as education, better housing and living conditions, family-related migration, and returning to hometowns help explain the social and economic motivations behind internal migration.
+
+This visualization is useful because it combines geographical location, migration volume, and migration reason in a single map. It shows that migration is not randomly distributed across Türkiye. Instead, some provinces attract more people due to opportunities related to education, employment, family networks, and urban living standards.
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(stringr)
+library(stringi)
+library(scales)
+
+options(scipen = 999)
+
+il_ozet <- final_data_clean %>%
+  mutate(
+    clean_neden = tolower(stri_trans_general(neden, "Latin-ASCII")),
+    
+    standart_neden = case_when(
+      str_detect(clean_neden, "egitim|education") ~ "Education",
+      
+      str_detect(clean_neden, "konut|yasam|housing|living") ~ "Better Living",
+      
+      str_detect(clean_neden, "memleket|geri donme|returning") ~ "Returning Home",
+      
+      str_detect(clean_neden, "bagimli|hane|household|family") ~ "Family Related",
+      
+      TRUE ~ "Other"
+    )
+  ) %>%
+  
+  group_by(il) %>%
+  
+  mutate(total_in_migration = sum(gelen_sayi, na.rm = TRUE)) %>%
+  
+  filter(gelen_sayi == max(gelen_sayi, na.rm = TRUE)) %>%
+  
+  slice(1) %>%
+  
+  select(
+    il,
+    top_reason = standart_neden,
+    total_in_migration
+  ) %>%
+  
+  ungroup()
+
+clean_city_name <- function(x) {
+  x %>%
+    as.character() %>%
+    stri_trans_general("Latin-ASCII") %>%
+    tolower() %>%
+    str_trim() %>%
+    str_replace_all("ı", "i") %>%
+    str_replace_all("^afyon$", "afyonkarahisar") %>%
+    str_replace_all("^maras$", "kahramanmaras")
+}
+
+turkey_map <- ne_states(
+  country = "Turkey",
+  returnclass = "sf"
+)
+
+map_data <- turkey_map %>%
+  
+  mutate(match_name = clean_city_name(name)) %>%
+  
+  left_join(
+    il_ozet %>%
+      mutate(match_name = clean_city_name(il)),
+    by = "match_name"
+  )
+
+map_points <- st_point_on_surface(map_data)
+
+ggplot() +
+  
+  geom_sf(
+    data = turkey_map,
+    fill = "gray95",
+    color = "gray70",
+    linewidth = 0.25
+  ) +
+  
+  geom_sf(
+    data = map_points,
+    aes(
+      size = total_in_migration,
+      color = top_reason
+    ),
+    alpha = 0.85
+  ) +
+  
+  scale_size_area(
+    max_size = 14,
+    name = "Total In-Migration",
+    labels = comma
+  ) +
+  
+  scale_color_manual(
+    values = c(
+      "Education" = "#003366",
+      "Better Living" = "#2ca25f",
+      "Returning Home" = "#f1c40f",
+      "Family Related" = "#5dade2",
+      "Other" = "gray60"
+    ),
+    
+    na.value = "gray70",
+    
+    name = "Top Reason for In-Migration"
+  ) +
+  
+  labs(
+  title = "Internal Migration Map of Turkey",
+  subtitle = "Top reasons for in-migration and total in-migration    volumes by province"
+  ) +
+  
+  theme_void() +
+  
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 20,
+      color = "#003366",
+      hjust = 0.5
+    ),
+    
+    plot.subtitle = element_text(
+      size = 12,
+      color = "#555555",
+      hjust = 0.5,
+      margin = margin(b = 15)
+    ),
+    
+    legend.position = "bottom",
+    
+    legend.box = "vertical",
+    
+    legend.title = element_text(
+      face = "bold",
+      size = 10
+    ),
+    
+    legend.text = element_text(size = 9),
+    
+    plot.margin = margin(10, 10, 10, 10)
+  ) +
+  
+  guides(
+    color = guide_legend(
+      ncol = 3,
+      title.position = "top"
+    ),
+    
+    size = guide_legend(
+      title.position = "top"
+    )
+  )
+```
+
+The map shows that provinces with larger in-migration volumes are visually concentrated through larger points. These provinces can be interpreted as stronger migration attractors within Türkiye. The colors also reveal that the dominant reasons for migration differ across provinces. For example, some provinces mainly attract people because of education, while others are more related to family movement or better living conditions.
+
+Overall, this map supports the idea that internal migration is shaped by both geographical and socio-economic factors. It also helps present migration patterns in a more intuitive way by connecting statistical values with their spatial distribution.
+
+------------------------------------------------------------------------
+
+## Out-Migration Map of Turkey
+
+While the previous visualization focused on incoming migration patterns, this map examines the distribution of outgoing migration across provinces in Turkey. The purpose of this analysis is to identify which provinces experience the highest levels of population outflow and to explore the dominant reasons behind these migration movements.
+
+Each point on the map represents a province. The size of the point corresponds to the total amount of outgoing migration from that province. Larger circles indicate provinces with higher out-migration volumes.
+
+In addition, colors are used to represent the most common reason for out-migration in each province. This provides a more comprehensive understanding of migration behavior by combining migration intensity with migration motivation.
+
+The visualization highlights how migration dynamics differ geographically and demonstrates that population loss is not evenly distributed across the country.
+
+```{r}
+#| echo: TRUE
+#| warning: FALSE
+#| message: FALSE
+#| fig-width: 12
+#| fig-height: 8
+
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(stringr)
+library(stringi)
+library(scales)
+
+options(scipen = 999)
+
+il_ozet_out <- final_data_clean %>%
+  
+  mutate(
+    clean_neden = tolower(stri_trans_general(neden, "Latin-ASCII")),
+    
+    standart_neden = case_when(
+      str_detect(clean_neden, "egitim|education") ~ "Education",
+      
+      str_detect(clean_neden, "konut|yasam|housing|living") ~ "Better Living",
+      
+      str_detect(clean_neden, "memleket|geri donme|returning") ~ "Returning Home",
+      
+      str_detect(clean_neden, "bagimli|hane|household|family") ~ "Family Related",
+      
+      TRUE ~ "Other"
+    )
+  ) %>%
+  
+  group_by(il) %>%
+  
+  mutate(total_out_migration = sum(giden_sayi, na.rm = TRUE)) %>%
+  
+  filter(giden_sayi == max(giden_sayi, na.rm = TRUE)) %>%
+  
+  slice(1) %>%
+  
+  select(
+    il,
+    top_reason = standart_neden,
+    total_out_migration
+  ) %>%
+  
+  ungroup()
+
+clean_city_name <- function(x) {
+  x %>%
+    as.character() %>%
+    stri_trans_general("Latin-ASCII") %>%
+    tolower() %>%
+    str_trim() %>%
+    str_replace_all("ı", "i") %>%
+    str_replace_all("^afyon$", "afyonkarahisar") %>%
+    str_replace_all("^maras$", "kahramanmaras")
+}
+
+turkey_map <- ne_states(
+  country = "Turkey",
+  returnclass = "sf"
+)
+
+map_data_out <- turkey_map %>%
+  
+  mutate(match_name = clean_city_name(name)) %>%
+  
+  left_join(
+    il_ozet_out %>%
+      mutate(match_name = clean_city_name(il)),
+    by = "match_name"
+  )
+
+map_points_out <- st_point_on_surface(map_data_out)
+
+ggplot() +
+  
+  geom_sf(
+    data = turkey_map,
+    fill = "gray95",
+    color = "gray70",
+    linewidth = 0.25
+  ) +
+  
+  geom_sf(
+    data = map_points_out,
+    aes(
+      size = total_out_migration,
+      color = top_reason
+    ),
+    alpha = 0.85
+  ) +
+  
+  scale_size_area(
+    max_size = 14,
+    name = "Total Out-Migration",
+    labels = comma
+  ) +
+  
+  scale_color_manual(
+    values = c(
+      "Education" = "#003366",
+      "Better Living" = "#2ca25f",
+      "Returning Home" = "#f1c40f",
+      "Family Related" = "#5dade2",
+      "Other" = "gray60"
+    ),
+    
+    na.value = "gray70",
+    
+    name = "Top Reason for Out-Migration"
+  ) +
+  
+  labs(
+    title = "Out-Migration Map of Turkey",
+    
+    subtitle = "Top reasons for out-migration and total out-migration volumes by province"
+  ) +
+  
+  theme_void() +
+  
+  theme(
+    plot.title = element_text(
+      face = "bold",
+      size = 20,
+      color = "#003366",
+      hjust = 0.5
+    ),
+    
+    plot.subtitle = element_text(
+      size = 12,
+      color = "#555555",
+      hjust = 0.5,
+      margin = margin(b = 15)
+    ),
+    
+    legend.position = "bottom",
+    
+    legend.box = "vertical",
+    
+    legend.title = element_text(
+      face = "bold",
+      size = 10
+    ),
+    
+    legend.text = element_text(size = 9),
+    
+    plot.margin = margin(10, 10, 10, 10)
+  ) +
+  
+  guides(
+    color = guide_legend(
+      ncol = 3,
+      title.position = "top"
+    ),
+    
+    size = guide_legend(
+      title.position = "top"
+    )
+  )
+```
+
+The map demonstrates that out-migration intensity varies significantly across provinces. Some provinces experience considerably larger population outflows compared to others, which may reflect economic limitations, educational migration, employment opportunities in larger cities, or changing living preferences.
+
+The dominant migration reasons also differ regionally. In some provinces, education emerges as the primary reason for migration, while in others family-related migration or better living conditions play a stronger role.
+
+Overall, the visualization provides insight into the spatial structure of population loss in Turkey and helps illustrate how migration decisions are influenced by both geographical and socio-economic factors.
